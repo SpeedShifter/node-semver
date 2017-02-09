@@ -1283,6 +1283,8 @@
       var parsed = parse(version, loose);
       return (parsed && parsed.prerelease.length) ? parsed.prerelease : null;
     }
+
+    exportOut('semver', semver);
     
     /*--------------------------------------------------------------------------*/
 
