@@ -1,5 +1,11 @@
 ;(function() {
 
+    /** Used to determine if values are of the language type `Object`. */
+    var objectTypes = {
+        'function': true,
+        'object': true
+    };
+
     /** Detect free variable `exports`. */
     var freeExports = (objectTypes[typeof exports] && exports && !exports.nodeType)
       ? exports
@@ -17,12 +23,6 @@
 
     /** Detect free variable `global` from Node.js. */
     var freeGlobal = checkGlobal(freeExports && freeModule && typeof global == 'object' && global);
-    
-    /** Used to determine if values are of the language type `Object`. */
-    var objectTypes = {
-        'function': true,
-        'object': true
-    };
     
     /** Detect free variable `self`. */
     var freeSelf = checkGlobal(objectTypes[typeof self] && self);
@@ -1306,6 +1306,10 @@
         // Export for Node.js.
         if (moduleExports) {
             (freeModule.exports = semver).semver = semver;
+
+            for (var key in semver) {
+                (freeModule.exports = semver[key])[key] = semver[key];
+            }
         }
         // Export for CommonJS support.
         freeExports.semver = semver;
